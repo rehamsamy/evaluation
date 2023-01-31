@@ -25,6 +25,7 @@ class _HomeViewState extends State<HomeView> {
     _inputData.categoryId=1;
     _bloc.add(ProductEventStart(_inputData));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
