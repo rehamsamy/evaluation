@@ -25,6 +25,7 @@ class _AuthViewState extends State<AuthView> {
   final _passwordController = TextEditingController();
   final _inputData = LoginInputData();
   final _bloc = KiwiContainer().resolve<LoginBloc>();
+  final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
 @override
   void initState() {
     // TODO: implement initState
@@ -43,6 +44,7 @@ class _AuthViewState extends State<AuthView> {
           child: Padding(
             padding: const  EdgeInsets.symmetric(horizontal: 20.0),
             child: Form(
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -78,7 +80,7 @@ class _AuthViewState extends State<AuthView> {
                   SizedBox(height: 20,),
                   InkWell(
                       onTap: (){
-                        pushAndRemoveUntil(const ProductDetailView());
+                        pushAndRemoveUntil(const HomeView());
                       },child: AppText('Enter as Guest',color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,)),
                   SizedBox(height: 30,),
                   AppProgressButton(onPressed: (AnimationController animationController) {
@@ -107,9 +109,11 @@ class _AuthViewState extends State<AuthView> {
     //   return;
     // }
     // activateLoader(ctx);
-   _inputData.mobile=_emailController.text;
-   _inputData.password=_passwordController.text;
-    _bloc.add(LoginEventStart(_inputData));
+    if (_formKey.currentState!.validate()) {
+      _inputData.mobile = _emailController.text;
+      _inputData.password = _passwordController.text;
+      _bloc.add(LoginEventStart(_inputData));
+    }
   }
 
 }

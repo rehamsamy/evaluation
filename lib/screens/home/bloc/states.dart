@@ -6,7 +6,7 @@ class ProductStateStart extends ProductStates {}
 
 class ProductStateSuccess extends ProductStates {
   ProductModel? data;
-  ProductStateSuccess({
+  ProductStateSuccess({required
     this.data,
   });
 }

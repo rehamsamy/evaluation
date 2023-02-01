@@ -1,3 +1,4 @@
+import 'package:evaluation/helpers/custom_widgets/app_text.dart';
 import 'package:evaluation/screens/home/bloc/bloc.dart';
 import 'package:evaluation/screens/home/bloc/events.dart';
 import 'package:evaluation/screens/home/bloc/input_data.dart';
@@ -19,6 +20,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final _bloc = KiwiContainer().resolve<ProductBloc>();
   final _inputData = ProductInputData();
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   void initState() {
@@ -39,6 +41,44 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(150), // Set this height
+          child: Container(
+            height: 80,
+            decoration: BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10))),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.dehaze_rounded,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      _key.currentState!.openDrawer();
+                    },
+                  ),
+                  AppText(
+                    'Asweome Store',
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_forward_ios_sharp,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                    },
+                  ),
+                ]),
+          ),
+        ),
       body: BlocBuilder(
       bloc: _bloc,
       builder: (context, state){
@@ -52,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 0,
-                  mainAxisExtent: 250),
+                  mainAxisExtent: 300),
               itemCount: state.data!.data?.product?.length,
               itemBuilder: (_, index) => Padding(
                 padding: const EdgeInsets.all(12.0),

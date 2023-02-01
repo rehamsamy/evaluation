@@ -19,8 +19,8 @@ class ProductDetailBloc extends Bloc<ProductDetailEvents, ProductDetailStates> {
     CustomResponse response = await serverGate.sendToServer(
         url: "client/Product", body: event.inputData!.toJson());
     if (response.success && response.response!.data["success"] == true) {
-      ProductDetailModel.fromJson(response.response!.data);
-      emit(ProductDetailStateSuccess());
+      ProductDetailModel productDetailModel=  ProductDetailModel.fromJson(response.response!.data);
+      emit(ProductDetailStateSuccess(data: productDetailModel));
     } else if (response.success && response.response!.data["success"] == false) {
       emit(ProductDetailStateFailed(
         errType: 422,

@@ -26,6 +26,7 @@ class _RegisterViewState extends State<RegisterView> {
   final _confirmPasswordController = TextEditingController();
   final _inputData = RegisterInputData();
   final _bloc = KiwiContainer().resolve<RegisterBloc>();
+  final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +39,7 @@ class _RegisterViewState extends State<RegisterView> {
           child: Padding(
             padding: const  EdgeInsets.symmetric(horizontal: 20.0),
             child: Form(
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -128,12 +130,14 @@ class _RegisterViewState extends State<RegisterView> {
     //   return;
     // }
     // activateLoader(ctx);
-    _inputData.email=_emailController.text;
-    _inputData.password=_passwordController.text;
-    _inputData.confirmPassword=_confirmPasswordController.text;
-    _inputData.mobile=_phoneController.text;
-    _inputData.name=_nameController.text;
-    _bloc.add(RegisterEventStart(_inputData));
+    if (_formKey.currentState!.validate()) {
+      _inputData.email = _emailController.text;
+      _inputData.password = _passwordController.text;
+      _inputData.confirmPassword = _confirmPasswordController.text;
+      _inputData.mobile = _phoneController.text;
+      _inputData.name = _nameController.text;
+      _bloc.add(RegisterEventStart(_inputData));
+    }
   }
 
 }

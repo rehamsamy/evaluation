@@ -88,7 +88,7 @@ class AppCashedImage extends StatelessWidget {
                     bottomRight: Radius.circular(radius ?? 12),
                   ),
             image: DecorationImage(
-              image: AssetImage('assets/images/401.jpg',),
+              image: AssetImage('assets/images/401.png',),
               fit: fit ?? BoxFit.cover,
             ),
           ),

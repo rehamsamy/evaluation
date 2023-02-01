@@ -9,6 +9,7 @@ const String backDrop =
 const Color kPrimaryColor = Color(0xff41AF60);
 const Color kButtonColor = Color(0xff26a59a);
 const Color kBackColor1=Color(0xffE9F8EE);
+
 const Color kAccentColor = Color(0xffDA00FF);
 const Color kBackgroundColor = Color(0xff373D70);
 const Color kBackgroundDarkColor = Color(0xff191E47);
