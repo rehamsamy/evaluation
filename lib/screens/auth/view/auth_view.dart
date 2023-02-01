@@ -8,6 +8,7 @@ import 'package:evaluation/screens/auth/bloc/events.dart';
 import 'package:evaluation/screens/auth/bloc/input_data.dart';
 import 'package:evaluation/screens/auth/view/register_view.dart';
 import 'package:evaluation/screens/home/view/home_view.dart';
+import 'package:evaluation/screens/product_details/view/product_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +78,7 @@ class _AuthViewState extends State<AuthView> {
                   SizedBox(height: 20,),
                   InkWell(
                       onTap: (){
-                        pushAndRemoveUntil(const HomeView());
+                        pushAndRemoveUntil(const ProductDetailView());
                       },child: AppText('Enter as Guest',color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,)),
                   SizedBox(height: 30,),
                   AppProgressButton(onPressed: (AnimationController animationController) {

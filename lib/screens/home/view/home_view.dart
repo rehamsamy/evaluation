@@ -1,7 +1,9 @@
 import 'package:evaluation/screens/home/bloc/bloc.dart';
 import 'package:evaluation/screens/home/bloc/events.dart';
 import 'package:evaluation/screens/home/bloc/input_data.dart';
+import 'package:evaluation/screens/home/bloc/product_model.dart';
 import 'package:evaluation/screens/home/bloc/states.dart';
+import 'package:evaluation/screens/home/widget/category_items_item.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,17 +29,25 @@ class _HomeViewState extends State<HomeView> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _bloc.close();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder(
       bloc: _bloc,
       builder: (context, state){
       if (state is ProductStateStart) {
-        return CircularProgressIndicator();
+        print('step1');
+        return Center(child: CircularProgressIndicator());
       } else if (state is ProductStateSuccess) {
-        return Container(
-          height: 200,
-          child: GridView.builder(
+        print('step2'+(state.data?.success).toString());
+        return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 0,
@@ -46,10 +56,9 @@ class _HomeViewState extends State<HomeView> {
               itemCount: state.data!.data?.product?.length,
               itemBuilder: (_, index) => Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Container(color: Colors.orange,
-                width: 50,height: 100,)
+                child: ProductItem(state.data!.data?.product![index])
                ),
-              ),
+
         );
         //   ListView.builder(
         //   shrinkWrap: true,
@@ -61,9 +70,11 @@ class _HomeViewState extends State<HomeView> {
         //   },
         // );
       } else if (state is ProductStateFailed) {
+        print('step3');
         return SizedBox();
         // return ServerErrorWidget(state.msg!, state.statusCode);
       } else {
+        print('step4');
         return SizedBox();
         // return CustomLoader();
       }

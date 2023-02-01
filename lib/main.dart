@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evaluation/helpers/cache_helper.dart';
 import 'package:evaluation/helpers/codegen_loader.g.dart';
@@ -15,9 +14,7 @@ import 'helpers/core_classes/bloc_observer.dart';
 import 'helpers/custom_widgets/un_focus.dart';
 import 'helpers/core_classes/kiwi.dart';
 
-
 final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();

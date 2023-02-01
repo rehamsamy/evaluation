@@ -15,9 +15,9 @@ class ProductBloc extends Bloc<ProductEvents, ProductStates> {
     emit(ProductStateStart());
     CustomResponse response = await serverGate.sendToServer(
         url: "client/CategoryProduct", body: event.inputData!.toJson());
-    if (response.success && response.response!.data["error"] == false) {
+    if (response.success && response.response!.data["success"] == true) {
       emit(ProductStateSuccess());
-    } else if (response.success && response.response!.data["error"] == true) {
+    } else if (response.success && response.response!.data["success"] == false) {
       emit(ProductStateFailed(
         errType: 422,
         msg: response.response!.data["message"],
