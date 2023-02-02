@@ -2,13 +2,11 @@ import 'package:evaluation/helpers/custom_widgets/app_text.dart';
 import 'package:evaluation/screens/home/bloc/bloc.dart';
 import 'package:evaluation/screens/home/bloc/events.dart';
 import 'package:evaluation/screens/home/bloc/input_data.dart';
-import 'package:evaluation/screens/home/bloc/product_model.dart';
 import 'package:evaluation/screens/home/bloc/states.dart';
 import 'package:evaluation/screens/home/widget/category_item_loading.dart';
 import 'package:evaluation/screens/home/widget/category_items_item.dart';
 import 'package:evaluation/screens/items/my_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
 
@@ -53,32 +51,38 @@ class _HomeViewState extends State<HomeView> {
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10))),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.dehaze_rounded,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      _key.currentState!.openDrawer();
-                    },
-                  ),
-                  AppText(
-                    'Asweome Store',
-                    color: Colors.white,
-                    fontSize: 15,
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                    },
-                  ),
-                ]),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(height: 10,),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.dehaze_rounded,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          _key.currentState!.openDrawer();
+                        },
+                      ),
+                      AppText(
+                        'Aewsome Store',
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_forward_ios_sharp,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                        },
+                      ),
+                    ]),
+              ],
+            ),
           ),
         ),
       body: BlocBuilder(

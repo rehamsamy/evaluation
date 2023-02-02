@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evaluation/helpers/cache_helper.dart';
 import 'package:evaluation/helpers/codegen_loader.g.dart';
 import 'package:evaluation/helpers/core_classes/app_globals.dart';
-import 'package:evaluation/helpers/core_classes/server_gate.dart';
 import 'package:evaluation/helpers/core_classes/themes.dart';
 import 'package:evaluation/screens/auth/view/auth_view.dart';
 import 'package:flutter/material.dart';

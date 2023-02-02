@@ -29,18 +29,19 @@ class _RegisterViewState extends State<RegisterView> {
   final _confirmPasswordController = TextEditingController();
   final _inputData = RegisterInputData();
   final _bloc = KiwiContainer().resolve<RegisterBloc>();
-  final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Container(
+      body: Container(
         color: Colors.white,
         width: MediaQuery.of(context).size.width,
-        height:  MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height,
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const  EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -52,63 +53,69 @@ class _RegisterViewState extends State<RegisterView> {
                       keyboardType: TextInputType.text,
                       radius: 15,
                       horizontalPadding: 5,
-                      validateEmptyText:'empty'
-
-                  ),
+                      validateEmptyText: 'empty'),
                   CustomTextFormField(
                       hintText: 'Phone number',
                       controller: _phoneController,
                       keyboardType: TextInputType.number,
                       radius: 15,
                       horizontalPadding: 5,
-                      validateEmptyText:'empty'
-
-                  ),
+                      validateEmptyText: 'empty'),
                   CustomTextFormField(
                       hintText: 'Email',
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       radius: 15,
                       horizontalPadding: 5,
-                      validateEmptyText:'empty'
-
-                  ),
+                      validateEmptyText: 'empty'),
                   CustomTextFormField(
                       hintText: 'Password',
                       controller: _passwordController,
                       keyboardType: TextInputType.text,
                       horizontalPadding: 5,
-                      radius: 15, validateEmptyText:'empty'
-
-                  ),
+                      radius: 15,
+                      validateEmptyText: 'empty'),
                   CustomTextFormField(
                       hintText: 'Confirm password',
                       controller: _confirmPasswordController,
                       keyboardType: TextInputType.text,
                       horizontalPadding: 5,
-                      radius: 15, validateEmptyText:'empty'
-
+                      radius: 15,
+                      validateEmptyText: 'empty'),
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    AppText('Already have an account ?'),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    InkWell(
+                        onTap: () {
+                          pushAndRemoveUntil(const AuthView());
+                        },
+                        child: AppText(
+                          'Login',
+                          color: Colors.blue,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ))
+                  ]),
+                  SizedBox(
+                    height: 20,
                   ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        AppText('Already have an account ?'),
-                        SizedBox(width: 15,),
-                        InkWell(
-                          onTap: (){
-                            pushAndRemoveUntil(const AuthView());
-                          },
-                            child: AppText('Login',color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,))
-                      ]
-                  ),
-                  SizedBox(height: 20,),
                   InkWell(
-                    onTap: (){
-                      pushAndRemoveUntil(const HomeView());
-                    },
-                      child: AppText('Enter as Guest',color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,)),
-                  SizedBox(height: 30,),
-                  _btnRegister()        ],
+                      onTap: () {
+                        pushAndRemoveUntil(const HomeView());
+                      },
+                      child: AppText(
+                        'Enter as Guest',
+                        color: Colors.blue,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  _btnRegister()
+                ],
               ),
             ),
           ),
@@ -116,7 +123,6 @@ class _RegisterViewState extends State<RegisterView> {
       ),
     );
   }
-
 
   void _register(BuildContext ctx) {
     if (_formKey.currentState!.validate()) {
@@ -129,14 +135,12 @@ class _RegisterViewState extends State<RegisterView> {
     }
   }
 
-
   _btnRegister() {
-    AnimationController? anim;
     return BlocConsumer(
         bloc: _bloc,
         builder: (_, state) {
           if (state is RegisterStateStart) {
-            return  Center(
+            return Center(
               child: AppProgressButton(
                 onPressed: (AnimationController animationController) {
                   setState(() {
@@ -144,10 +148,9 @@ class _RegisterViewState extends State<RegisterView> {
                   });
                   Future.delayed(Duration(seconds: 10))
                       .then((value) => _register(
-                    context,
-                  ))
+                            context,
+                          ))
                       .then((value) => animationController.reverse());
-                  // animationController.reverse();
                 },
                 backgroundColor: kButtonColor,
                 width: MediaQuery.of(context).size.width - 40,
@@ -168,10 +171,9 @@ class _RegisterViewState extends State<RegisterView> {
                   });
                   Future.delayed(Duration(seconds: 10))
                       .then((value) => _register(
-                    context,
-                  ))
+                            context,
+                          ))
                       .then((value) => animationController.reverse());
-                  // animationController.reverse();
                 },
                 backgroundColor: kButtonColor,
                 width: MediaQuery.of(context).size.width - 40,
@@ -188,18 +190,16 @@ class _RegisterViewState extends State<RegisterView> {
         listener: (_, state) {
           if (state is RegisterStateSuccess) {
             pushAndRemoveUntil(const HomeView());
-          } else if (state is RegisterStateFailed) {
-            print('fffffff');
+          } else if (state is RegisterStateFailed){
             pushAndRemoveUntil(const HomeView());
             Fluttertoast.showToast(
                 msg: (state.msg).toString(),
                 backgroundColor: kPurpleColor,
                 textColor: Colors.white,
                 fontSize: 15);
-          }else{
+          } else {
             null;
           }
         });
   }
-
 }

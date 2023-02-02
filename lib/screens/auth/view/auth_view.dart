@@ -67,7 +67,7 @@ class _AuthViewState extends State<AuthView> {
                       radius: 15,
                       validateEmptyText: 'empty'),
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    AppText('Dont’t have an account ?'),
+                    AppText('Don’t have an account ?'),
                     SizedBox(
                       width: 15,
                     ),
@@ -99,7 +99,7 @@ class _AuthViewState extends State<AuthView> {
                     height: 30,
                   ),
                   _btnLogin(),
-                    ],
+                ],
               ),
             ),
           ),
@@ -109,12 +109,11 @@ class _AuthViewState extends State<AuthView> {
   }
 
   _btnLogin() {
-    AnimationController? anim;
     return BlocConsumer(
         bloc: _bloc,
         builder: (_, state) {
           if (state is LoginStateStart) {
-          return  Center(
+            return Center(
               child: AppProgressButton(
                 onPressed: (AnimationController animationController) {
                   setState(() {
@@ -122,8 +121,8 @@ class _AuthViewState extends State<AuthView> {
                   });
                   Future.delayed(Duration(seconds: 10))
                       .then((value) => _Login(
-                    context,
-                  ))
+                            context,
+                          ))
                       .then((value) => animationController.reverse());
                   // animationController.reverse();
                 },
@@ -138,7 +137,7 @@ class _AuthViewState extends State<AuthView> {
               ),
             );
           } else {
-           return Center(
+            return Center(
               child: AppProgressButton(
                 onPressed: (AnimationController animationController) {
                   setState(() {
@@ -146,8 +145,8 @@ class _AuthViewState extends State<AuthView> {
                   });
                   Future.delayed(Duration(seconds: 10))
                       .then((value) => _Login(
-                    context,
-                  ))
+                            context,
+                          ))
                       .then((value) => animationController.reverse());
                   // animationController.reverse();
                 },
@@ -167,15 +166,14 @@ class _AuthViewState extends State<AuthView> {
           if (state is LoginStateSuccess) {
             pushAndRemoveUntil(const HomeView());
           } else if (state is LoginStateFailed) {
-            print('fffffff');
             pushAndRemoveUntil(const HomeView());
             Fluttertoast.showToast(
                 msg: (state.msg).toString(),
                 backgroundColor: kPurpleColor,
                 textColor: Colors.white,
                 fontSize: 15);
-          }else{
-           null;
+          } else {
+            null;
           }
         });
   }
@@ -187,7 +185,4 @@ class _AuthViewState extends State<AuthView> {
       _bloc.add(LoginEventStart(_inputData));
     }
   }
-
-
-
 }
