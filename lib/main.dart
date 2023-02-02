@@ -21,6 +21,7 @@ void main() async {
   initServiceLocator();
   initKiwi();
 
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) {
