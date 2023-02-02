@@ -7,6 +7,7 @@ import 'package:evaluation/screens/items/my_drawer.dart';
 import 'package:evaluation/screens/product_details/bloc/bloc.dart';
 import 'package:evaluation/screens/product_details/bloc/events.dart';
 import 'package:evaluation/screens/product_details/bloc/input_data.dart';
+import 'package:evaluation/screens/product_details/bloc/product_detail_model.dart';
 import 'package:evaluation/screens/product_details/bloc/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,7 @@ class _HomeViewState extends State<ProductDetailView> {
 
   @override
   void initState() {
+    print('iddd   =>' +widget.productId.toString());
     // TODO: implement initState
     super.initState();
     _inputData.productId = widget.productId;
@@ -53,14 +55,8 @@ class _HomeViewState extends State<ProductDetailView> {
     return Scaffold(
       key: _key,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(150), // Set this height
-          child: Container(
-            height: 80,
-            decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10))),
+           preferredSize: Size.fromHeight(150), // Set this height
+          child: Center(
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -191,16 +187,37 @@ class _HomeViewState extends State<ProductDetailView> {
                             height: 50,
                             child: ListView.builder(scrollDirection: Axis.horizontal,
                                 itemCount:state.data?.data?.color?.length ,
-                                itemBuilder: (_,index){
-                              String? hex=state.data?.data?.color?[index].hex;
-                              int hexa=int.parse('0xff'+hex.toString());
+                                itemBuilder: (_,indx){
+                              String? hex1=state.data?.data?.color?[indx].hex;
+                              int hexa=int.parse('0xff'+hex1.toString());
                               return InkWell(
                                 onTap: (){
-                                  setState(() {
-                                    cirSelected=state.data?.data?.color?[index].id;
-                                    selectedIndex=index;
-                                    print('cir  =>'+cirSelected.toString());
-                                  });
+                                  print('step1 $hex1');
+                                    cirSelected=state.data?.data?.color?[indx].id;
+                                    selectedIndex=indx;
+                                    List<MoreImage>? images=state.data?.data?.moreImage;
+                                    String ?hexVal=images?[indx].hex;
+                                    for (int i=0;i<images!.length;i++){
+                                     if(images[i].hex==hex1){
+                                           setState(() {
+                                           imageSelected=images[i].image;
+                                           print('step1 $hexVal  step2  $hex1');
+                                           });
+                                     }
+                                    }
+                                      // images!.firstWhere((element) {
+                                      //   if(element.hex==){
+                                      //     setState(() {
+                                      //     imageSelected=element.image;
+                                      //     print('step1 $hexVal  step2  $hex');
+                                      //     });
+                                      //     return true;
+                                      //   }else{
+                                      //     return false;
+                                      //   }
+                                      // });
+
+
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(3.0),

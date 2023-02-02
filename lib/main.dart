@@ -17,14 +17,7 @@ import 'helpers/core_classes/kiwi.dart';
 final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
   await Cachehelpers.init();
-  // FirebaseMessaging.instance.getToken().then((value) async {
-  //   String? token = value;
-  //   print(token);
-  //   await Cachehelpers.setDeviceToken(token!);
-  // });
-  //  await ServerGate.init();
   await EasyLocalization.ensureInitialized();
   initServiceLocator();
   initKiwi();

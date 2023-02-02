@@ -4,6 +4,7 @@ import 'package:evaluation/screens/home/bloc/events.dart';
 import 'package:evaluation/screens/home/bloc/input_data.dart';
 import 'package:evaluation/screens/home/bloc/product_model.dart';
 import 'package:evaluation/screens/home/bloc/states.dart';
+import 'package:evaluation/screens/home/widget/category_item_loading.dart';
 import 'package:evaluation/screens/home/widget/category_items_item.dart';
 import 'package:evaluation/screens/items/my_drawer.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,19 @@ class _HomeViewState extends State<HomeView> {
       builder: (context, state){
       if (state is ProductStateStart) {
         print('step1');
-        return Center(child: CircularProgressIndicator());
+        return GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 0,
+              crossAxisSpacing: 0,
+              mainAxisExtent: 300),
+          itemCount: 10,
+          itemBuilder: (_, index) => Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: HomeLoading()
+          ),
+
+        );
       } else if (state is ProductStateSuccess) {
         print('step2'+(state.data?.success).toString());
         return GridView.builder(

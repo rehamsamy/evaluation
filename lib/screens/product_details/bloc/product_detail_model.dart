@@ -60,7 +60,7 @@ class Data {
     if (json['Color'] != null) {
       color = [];
       json['Color'].forEach((v) {
-        color?.add(Color.fromJson(v));
+        color?.add(ColorModel.fromJson(v));
       });
     }
   }
@@ -75,7 +75,7 @@ class Data {
   int? discount;
   int? priceAfterDiscount;
   List<MoreImage>? moreImage;
-  List<Color>? color;
+  List<ColorModel>? color;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -100,28 +100,28 @@ class Data {
 
 }
 
-class Color {
-  Color({
+class ColorModel {
+  ColorModel({
       this.id, 
       this.name, 
       this.hex, 
       this.size,});
 
-  Color.fromJson(dynamic json) {
+  ColorModel.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
     hex = json['hex'];
     if (json['Size'] != null) {
       size = [];
       json['Size'].forEach((v) {
-        size?.add(Size.fromJson(v));
+        size?.add(SizeModel.fromJson(v));
       });
     }
   }
   int? id;
   String? name;
   String? hex;
-  List<Size>? size;
+  List<SizeModel>? size;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -136,12 +136,12 @@ class Color {
 
 }
 
-class Size {
-  Size({
+class SizeModel {
+  SizeModel({
       this.id, 
       this.name,});
 
-  Size.fromJson(dynamic json) {
+  SizeModel.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
   }
