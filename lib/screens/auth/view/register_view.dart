@@ -6,10 +6,13 @@ import 'package:evaluation/helpers/custom_widgets/app_text_field.dart';
 import 'package:evaluation/screens/auth/bloc/bloc.dart';
 import 'package:evaluation/screens/auth/bloc/events.dart';
 import 'package:evaluation/screens/auth/bloc/input_data.dart';
+import 'package:evaluation/screens/auth/bloc/states.dart';
 import 'package:evaluation/screens/auth/view/auth_view.dart';
 import 'package:evaluation/screens/home/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -105,13 +108,7 @@ class _RegisterViewState extends State<RegisterView> {
                     },
                       child: AppText('Enter as Guest',color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,)),
                   SizedBox(height: 30,),
-                  AppProgressButton(onPressed: (AnimationController animationController) {
-                    _register(context);
-                  },
-                    backgroundColor: kButtonColor,
-                    width: MediaQuery.of(context).size.width-40,
-                    child: AppText('Register',fontWeight: FontWeight.bold,color: Colors.black,fontSize: 17,),)
-                ],
+                  _btnRegister()        ],
               ),
             ),
           ),
@@ -122,14 +119,6 @@ class _RegisterViewState extends State<RegisterView> {
 
 
   void _register(BuildContext ctx) {
-    // if (_selectedSizes.isEmpty) {
-    //   appConfig.showToast(
-    //       msg: Translations.of(ctx).currentLanguage == "en"
-    //           ? "Please select size"
-    //           : "من فضلك اختر الحجم");
-    //   return;
-    // }
-    // activateLoader(ctx);
     if (_formKey.currentState!.validate()) {
       _inputData.email = _emailController.text;
       _inputData.password = _passwordController.text;
@@ -138,6 +127,79 @@ class _RegisterViewState extends State<RegisterView> {
       _inputData.name = _nameController.text;
       _bloc.add(RegisterEventStart(_inputData));
     }
+  }
+
+
+  _btnRegister() {
+    AnimationController? anim;
+    return BlocConsumer(
+        bloc: _bloc,
+        builder: (_, state) {
+          if (state is RegisterStateStart) {
+            return  Center(
+              child: AppProgressButton(
+                onPressed: (AnimationController animationController) {
+                  setState(() {
+                    animationController.forward();
+                  });
+                  Future.delayed(Duration(seconds: 10))
+                      .then((value) => _register(
+                    context,
+                  ))
+                      .then((value) => animationController.reverse());
+                  // animationController.reverse();
+                },
+                backgroundColor: kButtonColor,
+                width: MediaQuery.of(context).size.width - 40,
+                child: AppText(
+                  'Register',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 17,
+                ),
+              ),
+            );
+          } else {
+            return Center(
+              child: AppProgressButton(
+                onPressed: (AnimationController animationController) {
+                  setState(() {
+                    animationController.forward();
+                  });
+                  Future.delayed(Duration(seconds: 10))
+                      .then((value) => _register(
+                    context,
+                  ))
+                      .then((value) => animationController.reverse());
+                  // animationController.reverse();
+                },
+                backgroundColor: kButtonColor,
+                width: MediaQuery.of(context).size.width - 40,
+                child: AppText(
+                  'Register',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 17,
+                ),
+              ),
+            );
+          }
+        },
+        listener: (_, state) {
+          if (state is RegisterStateSuccess) {
+            pushAndRemoveUntil(const HomeView());
+          } else if (state is RegisterStateFailed) {
+            print('fffffff');
+            pushAndRemoveUntil(const HomeView());
+            Fluttertoast.showToast(
+                msg: (state.msg).toString(),
+                backgroundColor: kPurpleColor,
+                textColor: Colors.white,
+                fontSize: 15);
+          }else{
+            null;
+          }
+        });
   }
 
 }

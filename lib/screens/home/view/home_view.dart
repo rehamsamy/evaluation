@@ -5,6 +5,7 @@ import 'package:evaluation/screens/home/bloc/input_data.dart';
 import 'package:evaluation/screens/home/bloc/product_model.dart';
 import 'package:evaluation/screens/home/bloc/states.dart';
 import 'package:evaluation/screens/home/widget/category_items_item.dart';
+import 'package:evaluation/screens/items/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
       }
 
       },
-      )
+      ),drawer: MyDrawer(),
     );
   }
 }

@@ -91,7 +91,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           style: TextStyle(
             fontSize: 12,
             fontFamily: 'Monaco',
-            color: widget.textColor ?? Theme.of(context).textTheme.subtitle1!.color,
+            // color: widget.textColor ?? Theme.of(context).textTheme.subtitle1!.color,
+            color: widget.textColor ?? Colors.black,
           ),
           controller: widget.controller,
           keyboardType: widget.keyboardType,

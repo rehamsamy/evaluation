@@ -3,6 +3,7 @@ import 'package:evaluation/helpers/custom_widgets/app_cached_image.dart';
 import 'package:evaluation/helpers/custom_widgets/app_text.dart';
 import 'package:evaluation/screens/home/bloc/states.dart';
 import 'package:evaluation/screens/home/view/home_view.dart';
+import 'package:evaluation/screens/items/my_drawer.dart';
 import 'package:evaluation/screens/product_details/bloc/bloc.dart';
 import 'package:evaluation/screens/product_details/bloc/events.dart';
 import 'package:evaluation/screens/product_details/bloc/input_data.dart';
@@ -138,7 +139,6 @@ class _HomeViewState extends State<ProductDetailView> {
                                                         .toString();
                                                     print('imagess ==> '+imageSelected.toString());
                                                   });
-                                                 updateImage();
                                                 },
                                                 child: AppCashedImage(
                                                     imageUrl: state
@@ -258,18 +258,8 @@ class _HomeViewState extends State<ProductDetailView> {
               },
             ),
           ],
-        ));
+        ),
+    drawer: MyDrawer(),);
   }
 
-  void updateImage() {
-    // setState(() {
-    //   imageSelected = (state
-    //       .data
-    //       ?.data
-    //       ?.moreImage?[index]
-    //       .image)
-    //       .toString();
-    //   print('imagess ==> '+imageSelected.toString());
-    // });
-  }
 }
